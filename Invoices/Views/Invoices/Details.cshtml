@@ -1,0 +1,72 @@
+﻿@using System.Globalization
+@model Invoices.Models.Invoice
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Invoice</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Date Of Issue
+        </dt>
+        <dd class="col-sm-10">
+           @Model.DateOfIssue.ToString(CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern)
+        </dd>
+        <dt class="col-sm-2">
+            Due Date
+        </dt>
+        <dd class="col-sm-10">
+            @Model.DueDate.ToString(CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern)
+        </dd>
+        <dt class="col-sm-2">
+            Status
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InvoicePayingStatus)
+        </dd>
+    </dl>
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                <tr>
+                    <td>@item.Description</td>
+                    <td>@item.UnitPrice</td>
+                    <td>@item.Quantity</td>
+                    <td>@((item.UnitPrice * item.Quantity).ToString("C"))</td>
+                    <td><a class="btn btn-info" asp-controller="Items" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-outline-primary" asp-controller="Items" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a class="btn btn-danger" asp-controller="Items" asp-action="Create" asp-route-id="@Model.Id" >Add Item</a>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit Invoice header</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

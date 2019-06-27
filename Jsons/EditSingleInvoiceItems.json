@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "invoiceId": 1,
+    "invoice": null,
+    "description": "Item 1",
+    "quantity": 1,
+    "unitPrice": 20
+  },
+  {
+    "id": 2,
+    "invoiceId": 1,
+    "invoice": null,
+    "description": "Item 2",
+    "quantity": 2,
+    "unitPrice": 10
+  }
+]

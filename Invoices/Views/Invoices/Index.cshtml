@@ -1,0 +1,66 @@
+﻿@using System.Globalization
+@model IEnumerable<Invoices.Models.Invoice>
+
+@{
+    ViewData["Title"] = "List of Invoices";
+}
+
+<h1>List of Invoices</h1>
+
+<p>
+    <a class="btn btn-danger" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Supplier)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subscriber)
+        </th>
+        <th>
+            Date Of Issue
+        </th>
+        <th>
+            Due Date
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+        <th>
+            Status
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.Supplier.Name
+            </td>
+            <td>
+                @item.Subscriber.Name
+            </td>
+            <td>
+                @item.DateOfIssue.Date.ToString(CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern)
+            </td>
+            <td>
+                @item.DueDate.Date.ToString(CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InvoicePayingStatus)
+            </td>
+            <td>
+                <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Id">Edit header</a>
+                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                <a class="btn btn-outline-primary" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
