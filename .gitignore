@@ -12,6 +12,11 @@ project.lock.json
 *.user
 *.userosscache
 *.sln.docstates
+*.cache
+
+# Storage
+*storage.ide-shm
+*storage.ide-wal
 
 # Build results
 [Dd]ebug/
