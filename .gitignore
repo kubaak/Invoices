@@ -6,6 +6,8 @@ project.lock.json
 
 # Visual Studio Code
 .vscode
+*.dll
+*.pdb
 
 # User-specific files
 *.suo
@@ -13,6 +15,7 @@ project.lock.json
 *.userosscache
 *.sln.docstates
 *.cache
+*.g.cshtml.cs
 
 # Storage
 *storage.ide-shm
