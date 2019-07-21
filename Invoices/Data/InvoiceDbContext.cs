@@ -1,7 +1,8 @@
 ﻿using System;
+using Invoices.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Invoices.Models
+namespace Invoices.Data
 {
     public class InvoiceDbContext : DbContext
     {
