@@ -1,14 +1,13 @@
 ﻿using System;
 using Invoices.Authorization;
 using Invoices.Data;
-using Invoices.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace Invoices
 {
@@ -34,12 +33,12 @@ namespace Invoices
             services.AddDbContextPool<InvoiceDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LocalDatabase")));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc();
             services.AddScoped<IInvoicesRepository, InvoicesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -62,11 +61,10 @@ namespace Invoices
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
-            app.UseMvc(routes =>
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
             {
-                //routes.MapRoute(name: "api", template: "api/{controller=Invoices}");
-                routes.MapRoute(name: "default",template: "{controller=Invoices}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Invoices}/{action=Index}");
             });
         }
     }
